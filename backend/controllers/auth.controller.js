@@ -1,6 +1,7 @@
 import User from "../models/user.model.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { generateTokens,storeRefreshTokenInRedis,setCookies } from "../utils/authReq.js";
+import { sendEmail } from "../utils/resend.js";
 
 export const signUp = async(req,res,next)=>{
 
@@ -49,6 +50,8 @@ export const signUp = async(req,res,next)=>{
      setCookies( res,accessToken,refreshToken);
 
     newUser.password = undefined;
+
+    await sendEmail(newUser.fullName,newUser.email);
 
     return res.status(201).json({
         success:true,
