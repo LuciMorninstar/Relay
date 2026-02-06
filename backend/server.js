@@ -3,6 +3,7 @@
     import connectDB from "./utils/connectDB.js";
     import authRoutes from "./routes/auth.route.js";
     import cookieParser from "cookie-parser";
+    import { arcjetMiddleware } from "./middlewares/arcjet.middleware.js";
 
     const app = express();
     const PORT = process.env.PORT || 8000;
@@ -16,12 +17,14 @@
     app.use(express.urlencoded({extended:true}));
     app.use(cookieParser());
 
-    
+    app.use(arcjetMiddleware);
+
+    // routes
     app.use("/api/auth", authRoutes)
 
     app.listen(PORT,()=>{
-        console.log(`Server is running on port http://localhost:${PORT}`);
-        connectDB();
+    console.log(`Server is running on port http://localhost:${PORT}`);
+    connectDB();
 
     })
 
