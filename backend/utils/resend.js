@@ -19,7 +19,6 @@ export const sendEmail = async(receiverFullName,receiverEmailId)=>{
        return emailResult;
 
 
-        
     } catch (error) {
         console.log("Error in the sendEmail", error);
         throw error;
