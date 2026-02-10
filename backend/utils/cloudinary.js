@@ -20,7 +20,7 @@ export const uploadOnCloudinary = async(localFilePath)=>{
         }
 
         const response = await cloudinary.uploader.upload(localFilePath,{
-            folder:"Relay_Users/profilePics",
+            folder:"Relay_Users",
             resource_type:"auto"
         })
 
