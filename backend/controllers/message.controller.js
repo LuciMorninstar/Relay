@@ -144,7 +144,7 @@ export const getAllUsers = async(req,res,next)=>{
 }
 
 export const getMessagesById = async(req,res,next)=>{
-    const myId = req.user._id;
+    const myId = req.user?._id;
     const {id:receiverId} = req.params;
 
     try {
@@ -157,7 +157,7 @@ export const getMessagesById = async(req,res,next)=>{
         const messages = await Message.find({
             $or:[
                 {senderId:myId, receiverId:receiverId},
-                {senderId:receiverId, receiverIdmyId}
+                {senderId:receiverId, receiverId:myId}
             ]
         });
 

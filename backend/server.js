@@ -5,6 +5,7 @@
     import messageRoutes from "./routes/message.route.js";
     import cookieParser from "cookie-parser";
     import { arcjetMiddleware } from "./middlewares/arcjet.middleware.js";
+    import groupRoutes from "./routes/group.route.js";
 
     const app = express();
     const PORT = process.env.PORT || 8000;
@@ -23,7 +24,7 @@
     // routes
     app.use("/api/auth", authRoutes);
     app.use("/api/message",messageRoutes);
-    app.use("/api/groupMessage",groupMessageRoutes);
+    app.use("/api/group",groupRoutes);
 
     app.listen(PORT,()=>{
     console.log(`Server is running on port http://localhost:${PORT}`);
