@@ -27,7 +27,8 @@ const messageSchema = new mongoose.Schema({
             }
         }
     ],
-    video:{
+    video:[
+        {
         url:{
             type:String,
             default:null
@@ -36,8 +37,9 @@ const messageSchema = new mongoose.Schema({
             type:String,
             default:null
         }
+    }
 
-    },
+    ],
 
     reply:{
         type:mongoose.Schema.Types.ObjectId,
