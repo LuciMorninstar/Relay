@@ -28,7 +28,7 @@ const messageSchema = new mongoose.Schema({
         }
     ],
     video:[
-        {
+    {
         url:{
             type:String,
             default:null

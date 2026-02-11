@@ -27,6 +27,13 @@ const groupSchema = new mongoose.Schema({
             ref:"User",
             required:true
         }
+    ],
+
+    groupMessages: [
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"Message"
+        }
     ]
 
 
