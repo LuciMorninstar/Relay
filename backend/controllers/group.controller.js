@@ -145,7 +145,6 @@ export const addMembersToGroup = async(req,res,next)=>{
     }
 }
 
-
 export const updateGroupInfo = async(req,res,next)=>{
 
     const {groupId} = req.params;
