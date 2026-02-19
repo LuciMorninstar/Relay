@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@font-face{
+  font-family: 'Osiris';
+  src:url('./fonts/Osiris.ttf') format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+body{
+
+  @apply bg-dark-primary-color text-text-primary-color font-[osiris]
+}
+
+
+@layer base{
+  h1{
+    @apply text-text-primary-color  text-lg lg:text-3xl
+  }
+  h2{
+    @apply text-text-primary-color text-base lg:text-2xl
+  }
+}
+
+@theme{
+  /* dark */
+  --color-dark-primary-color:#2D3137; /*background*/
+  --color-dark-secondary-color:#212429; 
+
+  --color-dark-tertiary-color:#70cc00;
+
+  --color-text-primary-color:#B3B4B1;
+  
+
+
+
+}
+
+
+@layer utilities{
+
+  .tags{
+    @apply text-sm sm:text-base lg:text-lg px-3 lg:px-5 py-1 rounded-2xl text-white bg-linear-to-br from-[#90ff00] to-[#70cc00]
+  }
+
+  .input_bar{
+    @apply w-full px-3 py-2 border border-gray-400 rounded-md focus-within:outline-none focus-within:border-[#70cc00]
+   
+  }
+}
+
+
+
+
