@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "daisyui";
 
 @font-face{
   font-family: 'Osiris';
@@ -21,6 +22,15 @@ body{
   h2{
     @apply text-text-primary-color text-base lg:text-2xl
   }
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE & Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;             /* Chrome, Safari */
 }
 
 @theme{
