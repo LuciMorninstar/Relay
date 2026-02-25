@@ -10,6 +10,9 @@ export const signUp = async(req,res,next)=>{
     const {fullName,email, password} = req.body;
 
    try {
+    console.log(req.file, "file from the frontend");
+    console.log(req.body, "body from the frontend");
+
        if(!fullName || !email || !password){
         const err = new Error("All fields are required");
         err.statusCode = 400;
@@ -31,8 +34,8 @@ export const signUp = async(req,res,next)=>{
         public_id:null
     };
 
-    if(req.files && req.files?.profilePic?.length >0){
-        const profilePicPath = req.files.profilePic[0].path;
+    if(req.file){
+        const profilePicPath = req.file.path;
         const upload = await uploadOnCloudinary(profilePicPath);
         profilePicUrl = {
             url:upload.secure_url,

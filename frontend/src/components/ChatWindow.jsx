@@ -29,7 +29,7 @@ const chats = [
 
   return (
 
-    <aside className= "w-7/12 sm:w-7/12 lg:w-3/4 h-full flex flex-col gap-3 ">
+    <aside className= "w-7/12 sm:w-7/12 lg:w-3/4 h-full flex flex-col gap-3  ">
       <header className = "w-full px-3 py-2  bg-dark-secondary-color shadow-xl  ">
          <div className="flex flex-row items-center gap-2">
                  <div className="w-8 h-8 lg:w-12 lg:h-12 rounded-full ">
