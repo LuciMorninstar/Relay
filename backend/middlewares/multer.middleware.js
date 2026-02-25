@@ -1,8 +1,11 @@
 import multer from "multer"
 
+
+
 const storage = multer.diskStorage({
     destination:function(req,file,cb){
-        cb(null,"backend/public/temp");
+        cb(null,"public/temp");
+        //must have the public/temp folder created first otherwise destination error
 
     },
 
