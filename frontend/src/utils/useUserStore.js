@@ -14,6 +14,14 @@ export const useUserStore = create((set,get)=>({
     return response.data;  // return the reponse data to the tanstack query function so that it can access the data.
 
    },
+
+   signIn : async(formData) =>{
+    const response = await axios.post("/auth/signIn", formData);
+    set({user:response.data.user});
+        return response.data;
+    
+
+   }
     
 
 

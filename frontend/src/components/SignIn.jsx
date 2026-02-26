@@ -4,19 +4,52 @@ import signInImage from "../assets/images/login.png"
 import { useState } from 'react'
 import { IoEyeOff } from "react-icons/io5";
 import { FaRegEye } from "react-icons/fa";
-import { LuMessageCircle } from "react-icons/lu";
+import { LuLoader, LuMessageCircle, LuTableRowsSplit } from "react-icons/lu";
 import { Link } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import { useUserStore } from '../utils/useUserStore';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import {QueryClient} from "@tanstack/react-query";
 
 
 
 const SignIn = () => {
+    
+    const {signIn} = useUserStore();
+    const queryClient = new QueryClient();
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({email:"", password:""});
 
     const [togglePassword, setTogglePassword] = useState(false);
 
+    const signInMutation = useMutation({
+
+        mutationFn: signIn,
+
+        onSuccess:(data)=>{
+            console.log("User signed in", data.user);
+            toast.success("Signed in successfully");
+
+            setFormData({email:"", password:""});
+            queryClient.setQueryData(["user"], data.user); // set the user data in the cache after signing in so that it can be accessed in other components without making another API call.
+
+            navigate("/chat");
+
+
+        },
+        onError:(error)=>{
+            toast.error(error.response?.data?.message || "An error occured while signing in");
+        }
+
+    })
+
+
+
     const handleSignIn=(e)=>{
         e.preventDefault();
+        signInMutation.mutate(formData);
 
     }
 
@@ -76,7 +109,13 @@ const SignIn = () => {
                             </div>
                     </div>
 
-                    <button type="submit" className = "bg-green-500 px-3 py-2 text-white rounded-md mt-4"><span className='text-xl'>Sign In</span></button>
+                    <button type="submit" className = "bg-green-500 px-3 py-2 text-white rounded-md mt-4 cursor-pointer">
+                        {
+                            signInMutation.isPending?
+                            <LuLoader className='animate-spin mx-auto text-2xl'/>: <span className='text-xl'>Sign In</span>
+                        }
+                       
+                        </button>
 
                     <span className=' mx-auto mt-4'>Don't have an account? <Link className='text-dark-tertiary-color pl-1' to ="/signup"> Sign Up</Link></span>
 
