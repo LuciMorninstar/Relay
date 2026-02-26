@@ -1,5 +1,6 @@
 import "dotenv/config"
 
+
 export const emailTemplate = (receiverFullName)=>{
 
     return `
@@ -7,7 +8,7 @@ export const emailTemplate = (receiverFullName)=>{
 
         <!-- Logo -->
         <div style="text-align:center; margin-bottom: 20px;">
-          <img src="https://yourdomain.com/logo.png" alt="Relay Logo" style="max-height: 80px;">
+          <img src="https://relay.vercel.app/logo.png" alt="Relay Logo" style="max-height: 80px;">
         </div>
 
         <!-- Heading -->

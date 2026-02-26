@@ -6,6 +6,7 @@
     import cookieParser from "cookie-parser";
     import { arcjetMiddleware } from "./middlewares/arcjet.middleware.js";
     import groupRoutes from "./routes/group.route.js";
+    import userRoutes from "./routes/user.route.js";
     import cors from "cors";
 import { errorMiddleware } from "./middlewares/error.middleware.js";
 
@@ -32,6 +33,7 @@ import { errorMiddleware } from "./middlewares/error.middleware.js";
     app.use("/api/auth", authRoutes);
     app.use("/api/message",messageRoutes);
     app.use("/api/group",groupRoutes);
+    app.use("/api/user", userRoutes);
 
 
     app.use(errorMiddleware);

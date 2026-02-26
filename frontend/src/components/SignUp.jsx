@@ -12,12 +12,15 @@ import { useUserStore } from "../utils/useUserStore.js";
 import { useRef } from "react";
 import { QueryClient, useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 import { LuLoader } from "react-icons/lu";
 
 const SignUp = () => {
+
   const { signUp } = useUserStore();
-  const queryClient = new QueryClient();
+  // const queryClient = new QueryClient();
+  const navigate = useNavigate();
 
   const profilePicRef = useRef(null);
 
@@ -40,7 +43,7 @@ const profilePreview = formData.profilePic ? URL.createObjectURL(formData.profil
     mutationFn:signUp,
     onSuccess: (data)=>{
       toast.success("Sign up successfully. You can now sign in.");
-      queryClient.setQueryData(["user"], data.user)
+      // queryClient.setQueryData(["user"], data.user)
 
       console.log("User signed up ", data.user);
 
@@ -50,6 +53,8 @@ const profilePreview = formData.profilePic ? URL.createObjectURL(formData.profil
         password:"",
         profilePic:null
       })
+      
+      navigate("/signin");
     },
 
     onError:(error)=>{

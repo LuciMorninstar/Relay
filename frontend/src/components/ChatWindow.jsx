@@ -4,8 +4,12 @@ import avatar from "../assets/images/avatar.png"
 import kaneki from "../assets/images/kaneki.png"
 import ayanokoji from "../assets/images/ayanokoji.jpg"
 import Content from './Content'
+import { useUser } from "../../hooks/useUser.js";
 
 const ChatWindow = () => {
+
+  const {data:user} = useUser();
+  console.log(user, "user data");
 
 const chats = [
   { name: "Bibek Pandit", msg: "Hello man", date: "12:00 PM" },
@@ -35,13 +39,13 @@ const chats = [
                  <div className="w-8 h-8 lg:w-12 lg:h-12 rounded-full ">
                    <img
                      className="w-full h-full rounded-full object-cover object-center"
-                     src={kaneki}
+                     src={user?.profilePic?.url || avatar}
                      alt="profile"
                    />
                  </div>
        
                  <span className="text-white text-base sm:text-base lg:text-lg flex flex-col gap-0">
-                   <p className="text-sm sm:text-base lg:text-lg">Stars Winner</p>
+                   <p className="text-sm sm:text-base lg:text-lg">{user?.fullName || "User"}</p>
                    <span className="text-xs lg:text-sm">Online</span>
                  </span>
                </div>
