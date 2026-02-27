@@ -11,7 +11,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient();  // THis is global instance of query client which will be used in the entire app. We can use this instance to access the cache and other functionalities of react query in any component of the app by using the useQueryClient hook.
 const App = () => {
   return (
 

@@ -6,18 +6,19 @@ import { IoEyeOff } from "react-icons/io5";
 import { FaRegEye } from "react-icons/fa";
 import { LuLoader, LuMessageCircle, LuTableRowsSplit } from "react-icons/lu";
 import { Link } from 'react-router-dom';
-import { useMutation } from '@tanstack/react-query';
-import { useUserStore } from '../utils/useUserStore';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+// import { useUserStore } from '../utils/useUserStore';
+import { signIn } from '../hooks/useUser.js';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import {QueryClient} from "@tanstack/react-query";
+
 
 
 
 const SignIn = () => {
     
-    const {signIn} = useUserStore();
-    const queryClient = new QueryClient();
+    // const {signIn} = useUserStore();
+    const queryClient = useQueryClient();
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({email:"", password:""});

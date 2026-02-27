@@ -4,7 +4,7 @@ import avatar from "../assets/images/avatar.png"
 import kaneki from "../assets/images/kaneki.png"
 import ayanokoji from "../assets/images/ayanokoji.jpg"
 import Content from './Content'
-import { useUser } from "../../hooks/useUser.js";
+import { useUser } from "../hooks/useUser.js";
 
 const ChatWindow = () => {
 
