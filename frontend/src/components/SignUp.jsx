@@ -8,9 +8,9 @@ import { FaRegEye } from "react-icons/fa";
 import { IoCameraOutline } from "react-icons/io5";
 
 import {  Link } from "react-router-dom";
-import { useUserStore } from "../utils/useUserStore.js";
+import { signUp} from "../hooks/useUser.js";
 import { useRef } from "react";
-import { QueryClient, useMutation } from "@tanstack/react-query";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
@@ -18,8 +18,8 @@ import { LuLoader } from "react-icons/lu";
 
 const SignUp = () => {
 
-  const { signUp } = useUserStore();
-  // const queryClient = new QueryClient();
+ 
+  // const queryClient = userQueryClient;
   const navigate = useNavigate();
 
   const profilePicRef = useRef(null);

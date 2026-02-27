@@ -1,10 +1,14 @@
-import React from "react";
+import React, { use } from "react";
 import { useState } from "react";
 import avatar from "../assets/images/avatar.png";
 import kaneki from "../assets/images/kaneki.png";
 import { LuLogOut } from "react-icons/lu";
 import ChatContacs from '../components/ChatContacs';
-import { useUser } from "../../hooks/useUser.js";
+import { logoutUser, useUser } from "../hooks/useUser.js";
+// import { useMyChats } from "../hooks/useMessage.js";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const RelaySidebar = () => {
 
@@ -12,9 +16,52 @@ const RelaySidebar = () => {
   const {data:user} = useUser();
   console.log(user, "user data");
 
+
+  
   const topics = ["Chats", "Contacts"];
   const [activeTopic, setActiveTopic] = useState("Chats");
   console.log(activeTopic, "active topic");
+
+  const navigate = useNavigate();
+  
+  const queryClient = useQueryClient();
+
+  const logoutMutation = useMutation({
+    mutationFn: logoutUser,
+    onSuccess: ()=>{
+      toast.success("Logged out successfully");
+      // queryClient.setQueryData(["user"], null); // set the user data to null in the cache after logging out so that it can be accessed in other components without making another API call.
+
+      // or we can just remove the query
+      queryClient.removeQueries({queryKey:["user"]});
+
+
+
+        queryClient.invalidateQueries({queryKey:["user"]}); // invalidate the user query to refetch the user data and update the UI accordingly after logging out. This is important because some components might be using the user data from the cache, and we want to make sure that they get the updated data (null) after logging out.
+
+        navigate("/signIn");
+    },
+
+  
+
+    onError: (error)=>{
+      toast.error(error.reponse?.data?.message || "An error occured while logging out");
+    }
+  })
+
+
+  const handleLogout = (e)=>{
+    e.preventDefault();
+
+    logoutMutation.mutate();
+
+    
+
+    
+
+
+
+  }
 
 
 
@@ -45,7 +92,7 @@ const RelaySidebar = () => {
 
         {/* right side */}
 
-        <LuLogOut className="cursor-pointer" />
+        <LuLogOut onClick={handleLogout} className="cursor-pointer" />
         {/* /right side */}
       </div>
       {/* /1st part -profile */}
