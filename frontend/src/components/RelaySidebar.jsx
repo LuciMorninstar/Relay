@@ -10,11 +10,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-const RelaySidebar = () => {
+const RelaySidebar = ({setSelectedChatFriendId}) => {
 
 
   const {data:user} = useUser();
-  console.log(user, "user data");
+  // console.log(user, "user data");
 
 
   
@@ -55,13 +55,12 @@ const RelaySidebar = () => {
 
     logoutMutation.mutate();
 
-    
-
-    
-
-
-
+  
   }
+
+  // for messagesById
+
+  
 
 
 
@@ -114,7 +113,7 @@ const RelaySidebar = () => {
 
       {/* 3rd part -content */}
 
-      <ChatContacs activeTopic={activeTopic} />
+      <ChatContacs activeTopic={activeTopic} setSelectedChatFriendId={setSelectedChatFriendId} />
 
       {/* /3rd part-content */}
     </aside>

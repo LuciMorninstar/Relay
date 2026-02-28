@@ -159,7 +159,7 @@ export const getMessagesById = async(req,res,next)=>{
                 {senderId:myId, receiverId:receiverId},
                 {senderId:receiverId, receiverId:myId}
             ]
-        });
+        }).populate("senderId","fullName profilePic ").populate("receiverId","fullName profilePic");
 
         return res.status(200).json({
             success:true,
