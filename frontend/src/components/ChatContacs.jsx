@@ -22,6 +22,17 @@ const ChatContacs = ({activeTopic, setSelectedChatFriendId}) => {
 
 
 
+    
+  const {data:myChats, isLoading, isError} = useMyChats();
+
+//   console.log(myChats, "mychats");
+
+
+
+
+
+
+
 const chats = [
     {pic:avatar, name:"Jone Doe"},
     {pic:avatar, name:"Mexicon Joe"},
