@@ -17,10 +17,23 @@ export const uploadOnCloudinary = async(localFilePath)=>{
 // this is for multiple files since the image and video when uploaded to the cloudinary it will be in the form of array of paths so for that we are using the map function with Array checking
 //(For image and video)
         if(Array.isArray(localFilePath)){
-            return Promise.all(localFilePath.map((path)=>cloudinary.uploader.upload(path,{
+            const results = await  Promise.all(localFilePath.map((path)=>cloudinary.uploader.upload(path,{
                 folder:"Relay_files",
                 resource_type:"auto"
             })));
+            
+            localFilePath.forEach((path)=>{
+                try {
+                    fs.unlinkSync(path);
+                    
+                } catch (error) {
+                    console.log(error);
+                    
+                }
+            }
+            )
+
+            return results;
             
         }
 
@@ -42,9 +55,30 @@ export const uploadOnCloudinary = async(localFilePath)=>{
 
         
     } catch (error) {
-       if (localFilePath && !Array.isArray(localFilePath)) {
-    fs.unlinkSync(localFilePath);
-  }
+
+        if(Array.isArray(localFilePath)){
+            localFilePath.forEach((path)=>{
+                try {
+                    fs.unlinkSync(path);
+                    
+                } catch (error) {
+                    console.log(error);
+                    
+                }
+            })
+        }
+        else if(localFilePath){
+            try {
+                fs.unlinkSync(localFilePath);
+                
+            } catch (error) {
+                console.log(error);
+                
+            }
+        }
+
+
+   
   return null;
         
     }

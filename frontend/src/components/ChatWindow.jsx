@@ -5,15 +5,27 @@ import kaneki from "../assets/images/kaneki.png"
 import ayanokoji from "../assets/images/ayanokoji.jpg"
 import Content from './Content'
 import { useUser } from "../hooks/useUser.js";
+import { useRef } from 'react'
+import { useEffect } from 'react'
 
 const ChatWindow = ({messageQuery}) => {
   
+ 
 
   const {data:user} = useUser();
   // console.log(user, "user data");
 
   // to get the other userId beside the loggined user 
   const messages = messageQuery?.data || [];
+
+   //for scrolling to the bottom seciton of the messages
+   const messagesEndRef = useRef(null);
+
+   useEffect(()=>{
+    messagesEndRef.current?.scrollIntoView({behavior:"smooth"});
+   },[messages])
+
+   //scroll everytime the messages array changes - here dependency array is important blank doesn't work
 
   const otherUserId = messages.length > 0 ?
   (messages[0].senderId._id === user._id ? messages[0].receiverId._id:messages[0].senderId._id) :null;
@@ -49,6 +61,7 @@ const ChatWindow = ({messageQuery}) => {
       {(messageQuery?.data && messageQuery.data.length >0) ?
       
       <section className="flex flex-col gap-0 h-full w-full overflow-auto no-scrollbar ">
+
 
         {(messageQuery?.data || []).map((chat,i)=>{
 
@@ -115,6 +128,10 @@ const ChatWindow = ({messageQuery}) => {
          
        
 })}
+
+    <div ref={messagesEndRef}>
+{/* //For scroll to the bottom */}
+    </div>
         
 
 
