@@ -13,12 +13,23 @@ cloudinary.config({
 
 export const uploadOnCloudinary = async(localFilePath)=>{
     try {
-        if(!localFilePath){
-            const err = new Error("No localPath provided");
-            err.statusCode = 400;
-            return next(err);
+
+// this is for multiple files since the image and video when uploaded to the cloudinary it will be in the form of array of paths so for that we are using the map function with Array checking
+//(For image and video)
+        if(Array.isArray(localFilePath)){
+            return Promise.all(localFilePath.map((path)=>cloudinary.uploader.upload(path,{
+                folder:"Relay_files",
+                resource_type:"auto"
+            })));
+            
         }
 
+        if(!localFilePath){
+            return null;
+        }
+
+      
+//for single file (profilePic)
         const response = await cloudinary.uploader.upload(localFilePath,{
             folder:"Relay_Users",
             resource_type:"auto"
@@ -31,8 +42,10 @@ export const uploadOnCloudinary = async(localFilePath)=>{
 
         
     } catch (error) {
-        fs.unlinkSync(localFilePath);
-        return null;
+       if (localFilePath && !Array.isArray(localFilePath)) {
+    fs.unlinkSync(localFilePath);
+  }
+  return null;
         
     }
 }
