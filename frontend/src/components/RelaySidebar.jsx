@@ -10,7 +10,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-const RelaySidebar = ({setSelectedChatFriendId}) => {
+const RelaySidebar = ({setSelectedChatFriendId, users}) => {
 
 
   const {data:user} = useUser();
@@ -113,7 +113,7 @@ const RelaySidebar = ({setSelectedChatFriendId}) => {
 
       {/* 3rd part -content */}
 
-      <ChatContacs activeTopic={activeTopic} setSelectedChatFriendId={setSelectedChatFriendId} />
+      <ChatContacs activeTopic={activeTopic} setSelectedChatFriendId={setSelectedChatFriendId} users = {users} />
 
       {/* /3rd part-content */}
     </aside>

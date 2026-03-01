@@ -9,8 +9,8 @@ const NoChatWindow = () => {
             <LuMessageCircle />
         </span>
         <h2>Select a converstaion</h2>
-        <p className= "text-xs sm:text-sm lg:text-base">Choose a contact from teh RelaySidebar to start chatting or continue a previous conversation.</p>
-      <p className = "btn ">hello</p>
+        <p className= "text-xs sm:text-sm lg:text-base">Type a message to start a conversation</p>
+      {/* <p className = "btn "></p> */}
 
 
     </div>

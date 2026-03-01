@@ -12,24 +12,15 @@ const ChatWindow = ({messageQuery}) => {
   const {data:user} = useUser();
   // console.log(user, "user data");
 
-// const chats = [
-//   { name: "Bibek Pandit", msg: "Hello man", date: "12:00 PM" },
-//   { name: "Legion Power", msg: "Hey bro, what's up?", date: "12:01 PM" },
-//   { name: "Bibek Pandit", msg: "Nothing much, working on my project", date: "12:02 PM" },
-//   { name: "Legion Power", msg: "Nice, React one?", date: "12:03 PM" },
-//   { name: "Bibek Pandit", msg: "Yeah, chat UI actually", date: "12:04 PM" },
-//   { name: "Legion Power", msg: "Ohhh cool 🔥", date: "12:05 PM" },
-//   { name: "Bibek Pandit", msg: "Need to design messages section", date: "12:06 PM" },
-//   { name: "Bibek Pandit", msg: "Already installed 😂", date: "12:08 PM" },
-//   { name: "Legion Power", msg: "Use DaisyUI components bro", date: "12:07 PM" },
-//   { name: "Legion Power", msg: "Legend", date: "12:09 PM" },
-//   { name: "Legion Power", msg: "Send me the link when done", date: "12:11 PM" },
-//   { name: "Bibek Pandit", msg: "Will deploy tonight", date: "12:10 PM" },
-//   { name: "Legion Power", msg: "Use DaisyUI components bro", date: "12:07 PM" },
-//   { name: "Legion Power", msg: "Legend", date: "12:09 PM" },
-//   { name: "Legion Power", msg: "Send me the link when done", date: "12:11 PM" },
-//   { name: "Bibek Pandit", msg: "Will deploy tonight", date: "12:10 PM" },
-// ];
+  // to get the other userId beside the loggined user 
+  const messages = messageQuery?.data || [];
+
+  const otherUserId = messages.length > 0 ?
+  (messages[0].senderId._id === user._id ? messages[0].receiverId._id:messages[0].senderId._id) :null;
+  console.log(otherUserId, "otherUserId"); /*working - Sending this to the Content component as props so that reciverId can be used to send Message via useSendMessage mutation query in Content component*/
+
+  // to get the other userId check through the messages of array , check the first message in the array if it's senderId._id is equal to user._id then the otherUserId will be messages[0].receiverId._id else the otherUserId will be messages[0].senderId._id
+
 
 
   return (
@@ -55,6 +46,8 @@ const ChatWindow = ({messageQuery}) => {
 
 
       {/* chat container */}
+      {(messageQuery?.data && messageQuery.data.length >0) ?
+      
       <section className="flex flex-col gap-0 h-full w-full overflow-auto no-scrollbar ">
 
         {(messageQuery?.data || []).map((chat,i)=>{
@@ -128,7 +121,12 @@ const ChatWindow = ({messageQuery}) => {
 
       </section>
 
-      <Content/>
+      :
+      <NoChatWindow/>
+
+}
+
+      <Content otherUserId={otherUserId}/>
 
       
 

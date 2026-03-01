@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {axiosInstance as axios} from "../utils/axios.js"
-import { getMessagesById } from "../api/messagesApi.js";
+import {  getMessagesById, sendMessage } from "../api/messagesApi.js";
 
 export const getMyChats = async()=>{
     const res = await axios.get("/message/myChats");
@@ -24,3 +24,15 @@ export const useMessagesById = (id)=>{
     })
 
 }
+
+export const useSendMessage = ()=>{
+
+    return useMutation({
+        mutationFn:({receiverId,formData}) => sendMessage({
+            receiverId,
+            formData
+        })
+    })
+   
+}
+

@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import {axiosInstance as axios} from "../utils/axios.js"
+import { getAllUsers } from "../api/messagesApi.js";
 
 
 export const getCurrentUser = async()=>{
@@ -36,3 +37,13 @@ export const logoutUser = async()=>{
     const res = await axios.post("/auth/logout");
     return res.data;
 }
+
+
+export const useGetAllUsers = ()=>{
+    return useQuery({
+        queryKey:["users"],
+        queryFn:getAllUsers
+        
+    })
+}
+
