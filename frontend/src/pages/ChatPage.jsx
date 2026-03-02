@@ -33,7 +33,7 @@ const ChatPage = () => {
 
 
   return (
-    <WidthWrapper>
+  <WidthWrapper>
         <div className = "w-full h-[calc(100vh-100px)]  bg-dark-secondary-color rounded-3xl flex flex-row gap-2 ">
 
 

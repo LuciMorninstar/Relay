@@ -12,7 +12,7 @@ const ChatWindow = ({messageQuery}) => {
   
  
 
-  const {data:user} = useUser();
+  const {data:user, isLoading} = useUser();
   // console.log(user, "user data");
 
   // to get the other userId beside the loggined user 
@@ -39,7 +39,24 @@ const ChatWindow = ({messageQuery}) => {
 
     <aside className= "w-7/12 sm:w-7/12 lg:w-3/4 h-full flex flex-col gap-3  ">
       <header className = "w-full px-3 py-2  bg-dark-secondary-color shadow-xl  ">
-         <div className="flex flex-row items-center gap-2">
+        
+        {isLoading?
+        (
+           <div className="flex w-full flex-col gap-4">
+          <div className="flex items-center gap-4">
+            <div className="skeleton h-12 w-12 shrink-0 rounded-full"></div>
+            <div className="flex flex-col gap-4 w-full">
+              <div className="skeleton h-3 w-40"></div>
+              <div className="skeleton h-3 w-20"></div>
+            </div>
+          </div>
+         
+        </div>
+          
+        )
+        :
+        (
+            <div className="flex flex-row items-center gap-2">
                  <div className="w-8 h-8 lg:w-12 lg:h-12 rounded-full ">
                    <img
                      className="w-full h-full rounded-full object-cover object-center"
@@ -53,6 +70,9 @@ const ChatWindow = ({messageQuery}) => {
                    <span className="text-xs lg:text-sm">Online</span>
                  </span>
                </div>
+        )
+        }
+       
 
       </header>
 

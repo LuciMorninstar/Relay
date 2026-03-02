@@ -40,9 +40,10 @@ console.log(users.data, "users");
 
 if(isLoading){
     return <div className="flex w-full flex-col gap-1">
-  <div className="skeleton h-20 w-full"></div>
-  <div className="skeleton h-20 w-full"></div>
-  <div className="skeleton h-20 w-full"></div>
+  <div className="skeleton h-18 w-full"></div>
+  <div className="skeleton h-18 w-full"></div>
+  <div className="skeleton h-18 w-full"></div>
+  <div className="skeleton h-18 w-full"></div>
 
 </div>
 }
