@@ -139,6 +139,7 @@ const Content = ({otherUserId:receiverId}) => {
         <CiImageOn />
         {/* for both image and video */}
         <input
+        disabled={isPending}
           ref={fileRef}
           type="file"
         
@@ -158,12 +159,12 @@ const Content = ({otherUserId:receiverId}) => {
         {isPending ? <LuLoader className="animate-spin text-xl"/>: <VscSend />}
        
       </button>
-
-      <div className={`${messageData?.image?.length <=0 && messageData?.video?.length <=0 && "hidden"} absolute z-10  bg-dark-primary-color overflow-hidden rounded-t-xl p-4  -top-30 right-0 w-50 h-30 grid grid-cols-${messageData.image.length + messageData.video.length} } gap-2`}>
+{/* //for preview */}
+      <div className={`${messageData?.image?.length <=0 && messageData?.video?.length <=0 && "hidden"} absolute z-10  bg-dark-primary-color overflow-hidden rounded-xl p-2  -top-25 left-0  h-25 flex flex-row gap-2 } gap-2`}>
         {
           messageData?.image?.map((img)=>(
             <img src = {URL.createObjectURL(img) } alt="img"
-            className = " p-1" />
+            className = " p-1 w-20 h-20" />
           ))
         }
          {

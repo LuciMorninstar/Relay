@@ -5,15 +5,27 @@ import kaneki from "../assets/images/kaneki.png"
 import ayanokoji from "../assets/images/ayanokoji.jpg"
 import Content from './Content'
 import { useUser } from "../hooks/useUser.js";
+import { useRef } from 'react'
+import { useEffect } from 'react'
 
 const ChatWindow = ({messageQuery}) => {
   
+ 
 
-  const {data:user} = useUser();
+  const {data:user, isLoading} = useUser();
   // console.log(user, "user data");
 
   // to get the other userId beside the loggined user 
   const messages = messageQuery?.data || [];
+
+   //for scrolling to the bottom seciton of the messages
+   const messagesEndRef = useRef(null);
+
+   useEffect(()=>{
+    messagesEndRef.current?.scrollIntoView({behavior:"smooth"});
+   },[messages])
+
+   //scroll everytime the messages array changes - here dependency array is important blank doesn't work
 
   const otherUserId = messages.length > 0 ?
   (messages[0].senderId._id === user._id ? messages[0].receiverId._id:messages[0].senderId._id) :null;
@@ -27,7 +39,24 @@ const ChatWindow = ({messageQuery}) => {
 
     <aside className= "w-7/12 sm:w-7/12 lg:w-3/4 h-full flex flex-col gap-3  ">
       <header className = "w-full px-3 py-2  bg-dark-secondary-color shadow-xl  ">
-         <div className="flex flex-row items-center gap-2">
+        
+        {isLoading?
+        (
+           <div className="flex w-full flex-col gap-4">
+          <div className="flex items-center gap-4">
+            <div className="skeleton h-12 w-12 shrink-0 rounded-full"></div>
+            <div className="flex flex-col gap-4 w-full">
+              <div className="skeleton h-3 w-40"></div>
+              <div className="skeleton h-3 w-20"></div>
+            </div>
+          </div>
+         
+        </div>
+          
+        )
+        :
+        (
+            <div className="flex flex-row items-center gap-2">
                  <div className="w-8 h-8 lg:w-12 lg:h-12 rounded-full ">
                    <img
                      className="w-full h-full rounded-full object-cover object-center"
@@ -41,6 +70,9 @@ const ChatWindow = ({messageQuery}) => {
                    <span className="text-xs lg:text-sm">Online</span>
                  </span>
                </div>
+        )
+        }
+       
 
       </header>
 
@@ -49,6 +81,7 @@ const ChatWindow = ({messageQuery}) => {
       {(messageQuery?.data && messageQuery.data.length >0) ?
       
       <section className="flex flex-col gap-0 h-full w-full overflow-auto no-scrollbar ">
+
 
         {(messageQuery?.data || []).map((chat,i)=>{
 
@@ -115,6 +148,10 @@ const ChatWindow = ({messageQuery}) => {
          
        
 })}
+
+    <div ref={messagesEndRef}>
+{/* //For scroll to the bottom */}
+    </div>
         
 
 
